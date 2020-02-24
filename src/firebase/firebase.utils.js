@@ -47,7 +47,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 		}
 	}
 
-	// we might need userRef for something
+	// we want to return userRef to check if database has been updated
+	// in App.js
 	return userRef;
 };
 
