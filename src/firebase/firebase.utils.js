@@ -13,6 +13,35 @@ const config = {
 	measurementId: "G-JHJ3LVDWB3",
 };
 
+// NOTE: allows us to take user Auth and store in database
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+	if (!userAuth) return;
+
+	const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+	const snapShot = await userRef.get();
+
+	// if snapshot doesnt exist, the following will create one
+	if (!snapShot.exists) {
+		const { displayName, email } = userAuth;
+		const createdAt = new Date();
+
+		try {
+			await userRef.set({
+				displayName,
+				email,
+				createdAt,
+				...additionalData,
+			});
+		} catch (error) {
+			console.log("error creating user", error.message);
+		}
+	}
+
+	// we might need userRef for something
+	return userRef;
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
