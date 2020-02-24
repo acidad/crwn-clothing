@@ -13,19 +13,28 @@ const config = {
 	measurementId: "G-JHJ3LVDWB3",
 };
 
+// NOTE: ALL CRUD on DocumentREF
 // NOTE: allows us to take user Auth and store in database
 export const createUserProfileDocument = async (userAuth, additionalData) => {
+	// Only save to database if user is not Null
+	// If null, just return.
 	if (!userAuth) return;
 
+	// else
+	// QueryReference - Current place in database
+	// - returns reference object
+	// NOTE: use reference object to save / get data in this location
 	const userRef = firestore.doc(`users/${userAuth.uid}`);
 
+	// We get the snapshot Object using .get() on reference object
+	// has bool property of exisits
 	const snapShot = await userRef.get();
 
-	// if snapshot doesnt exist, the following will create one
+	// if snapshot doesnt exist:
 	if (!snapShot.exists) {
 		const { displayName, email } = userAuth;
 		const createdAt = new Date();
-
+		// Use documentRef to set // Not Snapshot
 		try {
 			await userRef.set({
 				displayName,
