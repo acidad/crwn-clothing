@@ -1,4 +1,5 @@
 export const addItemToCart = (cartItems, cartItemToAdd) => {
+	// exisitingcartitem will be first item found that cartItem.id === to cartItemToAdd.id
 	const exisitingCartItem = cartItems.find(
 		cartItem => cartItem.id === cartItemToAdd.id
 	);
