@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react';
 
-import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.component";
+import FormInput from '../form-input/form-input.component';
+import CustomButton from '../custom-button/custom-button.component';
 
-import { auth, createUserProfileDocument } from "../../firebase/firebase.utils";
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
-import "./sign-up.styles.scss";
+import { SignUpContainer, TitleStyles } from './sign-up.styles';
 
 class SignUp extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			displayName: "",
-			email: "",
-			password: "",
-			confirmPassword: "",
+			displayName: '',
+			email: '',
+			password: '',
+			confirmPassword: '',
 		};
 	}
 
@@ -26,7 +26,7 @@ class SignUp extends React.Component {
 
 		// check if passwords match
 		if (password !== confirmPassword) {
-			alert("Passwords do not match!");
+			alert('Passwords do not match!');
 			return;
 		}
 
@@ -40,10 +40,10 @@ class SignUp extends React.Component {
 
 			// once created reset state
 			this.setState({
-				displayName: "",
-				email: "",
-				password: "",
-				confirmPassword: "",
+				displayName: '',
+				email: '',
+				password: '',
+				confirmPassword: '',
 			});
 		} catch (error) {
 			console.error(error);
@@ -59,8 +59,8 @@ class SignUp extends React.Component {
 	render() {
 		const { displayName, email, password, confirmPassword } = this.state;
 		return (
-			<div className="sign-up">
-				<h2 className="title">I do not have an account</h2>
+			<SignUpContainer>
+				<TitleStyles>I do not have an account</TitleStyles>
 				<span>Sign up with your email and password</span>
 
 				<form className="sign-up-form" onSubmit={this.handleSubmit}>
@@ -99,7 +99,7 @@ class SignUp extends React.Component {
 
 					<CustomButton type="submit">SIGN UP</CustomButton>
 				</form>
-			</div>
+			</SignUpContainer>
 		);
 	}
 }

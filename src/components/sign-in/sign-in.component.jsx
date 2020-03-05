@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 
-import FormInput from "../form-input/form-input.component";
-import CustomButton from "../custom-button/custom-button.component";
+import FormInput from '../form-input/form-input.component';
+import CustomButton from '../custom-button/custom-button.component';
 
-import { auth, SignInWithGoogle } from "../../firebase/firebase.utils";
+import { auth, SignInWithGoogle } from '../../firebase/firebase.utils';
 
-import "./sign-in.styles.scss";
+import { SignInContainer, TitleStyles, ButtonsStyles } from './sign-in.styles';
 
 class SignIn extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			email: "",
-			password: "",
+			email: '',
+			password: '',
 		};
 	}
 
@@ -25,14 +25,14 @@ class SignIn extends React.Component {
 		try {
 			await auth.signInWithEmailAndPassword(email, password);
 			this.setState({
-				email: "",
-				password: "",
+				email: '',
+				password: '',
 			});
 		} catch (error) {
 			console.log(error);
 		}
 
-		this.setState({ email: "", password: "" });
+		this.setState({ email: '', password: '' });
 	};
 
 	handleChange = event => {
@@ -42,8 +42,8 @@ class SignIn extends React.Component {
 
 	render() {
 		return (
-			<div className="sign-in">
-				<h2>I already have an account</h2>
+			<SignInContainer>
+				<TitleStyles>I already have an account</TitleStyles>
 				<span>Sign in with your email and password</span>
 
 				<form onSubmit={this.handleSubmit}>
@@ -64,14 +64,14 @@ class SignIn extends React.Component {
 						label="Password"
 						required
 					/>
-					<div className="buttons">
+					<ButtonsStyles>
 						<CustomButton type="submit">Sign In</CustomButton>
 						<CustomButton onClick={SignInWithGoogle} isGooogleSignIn>
-							{"  "} Sign in With Google {"  "}
+							{'  '} Sign in With Google {'  '}
 						</CustomButton>
-					</div>
+					</ButtonsStyles>
 				</form>
-			</div>
+			</SignInContainer>
 		);
 	}
 }
